@@ -1,0 +1,46 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <label>Wejście</label>
+    <div class="">
+        <input class="inputValue" type="number" value="">
+        <button class="submitButton">Przelicz</button>
+    </div>
+
+    <script>
+
+        var submitButton = document.getElementsByClassName('submitButton')[0],
+            inputValue = document.getElementsByClassName('inputValue')[0],
+            body = document.getElementsByTagName('body')[0];
+            submitButton.addEventListener('click', function() {
+                var i;
+                var amount = inputValue.value;
+                var table = document.createElement('table');
+                var headerRow = document.createElement('tr');
+                var headerItems = [];
+                var textNodes = [];
+
+                headerItems[0] = document.createElement('th');
+                headerRow.appendChild(headerItems[0]);
+                textNodes[0] = document.createTextNode('#');
+                headerItems[0].appendChild(textNodes[0]);
+
+                for (i = 1; i <= amount; i++) {
+                    headerItems[i] = document.createElement('th');
+                    headerRow.appendChild(headerItems[i]);
+                    textNodes[i] = document.createTextNode(i);
+                    headerItems[i].appendChild(textNodes[i]);
+                }
+
+                table.appendChild(headerRow);
+                body.appendChild(table);
+
+            }, false);
+
+    </script>
+</body>
+
+</html>
