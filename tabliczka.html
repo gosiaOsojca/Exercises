@@ -33,6 +33,8 @@
             }
 
             headerItems[0] = document.createElement('th');
+            headerItems[0].style.color = 'goldenrod';
+            headerItems[0].style.backgroundColor = 'black';
             headerItems[0].setAttribute('scope', 'row');
             headerRow.appendChild(headerItems[0]);
             textNodes[0] = document.createTextNode('#');
@@ -40,10 +42,16 @@
 
             for (i = 1; i <= amount; i++) {
                 headerItems[i] = document.createElement('th');
+                headerItems[i].style.color = 'goldenrod';
                 headerItems[i].setAttribute('scope', 'row');
                 headerRow.appendChild(headerItems[i]);
                 textNodes[i] = document.createTextNode(i);
                 headerItems[i].appendChild(textNodes[i]);
+                if(i % 2 === 0) {
+                    headerItems[i].style.backgroundColor = 'black';
+                } else {
+                    headerItems[i].style.backgroundColor = 'white';
+                }
             }
 
             table.appendChild(headerRow);
@@ -54,19 +62,35 @@
                 contentRows[i] = document.createElement('tr');
                 var rowHeader = document.createElement('th');
                 var headerTextNode = document.createTextNode(i);
+                rowHeader.style.color = 'goldenrod';
                 rowHeader.appendChild(headerTextNode);
                 rowHeader.setAttribute('scope', 'col');
                 contentRows[i].appendChild(rowHeader);
+                if(i % 2 === 0) {
+                    rowHeader.style.backgroundColor = 'black';
+                } else {
+                    rowHeader.style.backgroundColor = 'white';
+                }
 
                 var j;
                 var rowItems = [];
                 var rowContents = [];
                 for(j = 1; j <= amount; j++) {
                     rowItems[j] = document.createElement('td');
+                    rowItems[j].style.color = 'goldenrod';
                     var contentValue = (headerTextNode.nodeValue) * j;
                     rowContents[j] = document.createTextNode(contentValue);
                     rowItems[j].appendChild(rowContents[j]);
                     contentRows[i].appendChild(rowItems[j]);
+                    if(i % 2 === 0 && j % 2 === 0) {
+                        rowItems[j].style.backgroundColor = 'black';
+                    } else if (i % 2 === 0 && j % 2 !== 0) {
+                        rowItems[j].style.backgroundColor = 'white';
+                    } else if (i % 2 !== 0 && j % 2 === 0) {
+                        rowItems[j].style.backgroundColor = 'white';
+                    } else if (i % 2 !== 0 && j % 2 !== 0) {
+                        rowItems[j].style.backgroundColor = 'black';
+                    }
                 }
 
                 table.appendChild(contentRows[i]);
