@@ -1,0 +1,43 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <label>Podaj wysokość choinki</label>
+    <div class="">
+        <input class="inputValue" type="number">
+        <button class="submitButton">Rysuj choinkę</button>
+    </div>
+
+    <script>
+
+        var submitButton = document.getElementsByClassName('submitButton')[0],
+            inputValue = document.getElementsByClassName('inputValue')[0],
+            body = document.getElementsByTagName('body')[0];
+
+        submitButton.addEventListener('click', function () {
+            var amount = inputValue.value;
+            var i;
+            var christmasTree = document.createElement('div');
+            var j;
+            var treeBasis = [];
+
+
+            for (i = 1; i <= amount; i++) {
+                var treePart = document.createElement('p');
+                treePart.style.textAlign = 'right';
+                treePart.style.margin = '0';
+                treeBasis.push('x');
+                var arrayValue = treeBasis.join();
+                var contentvalue = arrayValue.replace(/,/g, '');
+                treePart.innerHTML = contentvalue;
+                christmasTree.appendChild(treePart);
+            }
+            body.appendChild(christmasTree);
+        }, false);
+
+    </script>
+</body>
+
+</html>
