@@ -19,19 +19,16 @@
         submitButton.addEventListener('click', function () {
             var amount = inputValue.value;
             var i;
+            var treeBasis = 'x';
+            var treeSpace = ' ';
             var christmasTree = document.createElement('div');
-            var j;
-            var treeBasis = [];
-
 
             for (i = 1; i <= amount; i++) {
                 var treePart = document.createElement('p');
-                treePart.style.textAlign = 'center';
+                // treePart.style.textAlign = 'right';
                 treePart.style.margin = '0';
-                treeBasis.push('x');
-                var arrayValue = treeBasis.join();
-                var contentvalue = arrayValue.replace(/,/g, '');
-                treePart.innerHTML = contentvalue;
+                var contentValue = treeBasis.repeat(i);
+                treePart.innerHTML = contentValue;
                 christmasTree.appendChild(treePart);
             }
             body.appendChild(christmasTree);
