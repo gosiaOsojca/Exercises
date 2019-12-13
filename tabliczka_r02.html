@@ -34,7 +34,7 @@
 
                 //----------------------
 
-                var firstCell = createFirstCell(goldenrod, black, headerItems[0]);
+                headerItems[0] = createFirstCell('goldenrod', 'black', headerItems[0]);
 
                 //------------------
 
@@ -100,8 +100,8 @@
 
         function createFirstCell(textColor, bgColor, element) {
             element = document.createElement('th');
-            element.style.color = 'textColor';
-            element.style.backgroundColor = 'bgColor';
+            element.style.color = textColor;
+            element.style.backgroundColor = bgColor;
             element.setAttribute('scope', 'row');
             return element;
         }
