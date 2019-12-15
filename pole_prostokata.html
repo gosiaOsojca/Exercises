@@ -1,0 +1,33 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <div class="">
+        <input class="recWidth" type="number">
+        <input class="recHeight" type="number">
+        <button class="submitButton">Oblicz pole prostokąta</button>
+    </div>
+
+    <script>
+        var submitButton = document.getElementsByClassName('submitButton')[0],
+            recWidth = document.getElementsByClassName('recWidth')[0],
+            recHeight = document.getElementsByClassName('recHeight')[0],
+            recArea;
+
+        submitButton.addEventListener('click', function () {
+            var widhtValue = recWidth.value;
+            var heightValue = recHeight.value;
+            rectangleArea(widhtValue, heightValue);
+        }, false);
+
+        function rectangleArea(width, height) {
+            recArea = width * height;
+            alert(recArea);
+        }
+
+    </script>
+</body>
+
+</html>
