@@ -19,12 +19,31 @@
         submitButton.addEventListener('click', function () {
             var widhtValue = recWidth.value;
             var heightValue = recHeight.value;
-            rectangleArea(widhtValue, heightValue);
+
+            var validationResult = validateAmounts(widhtValue, heightValue);
+
+            if (validationResult === 1 || validationResult === 2) {
+                alert("Your values are not validable");
+            } else {
+                rectangleArea(widhtValue, heightValue);
+                alert(recArea);
+            }
+
         }, false);
 
         function rectangleArea(width, height) {
             recArea = width * height;
-            alert(recArea);
+            return recArea;
+        }
+
+        function validateAmounts(a, b) {
+            if (parseInt(a) <= 0) {
+                return 1;
+            } else if (parseInt(b) <= 0) {
+                return 2;
+            } else {
+                return 3;
+            }
         }
 
     </script>
