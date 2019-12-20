@@ -1,0 +1,67 @@
+<html>
+
+<head></head>
+
+<body>
+    <div>
+        <p>Dodaj nowe połączenie</p>
+    </div>
+    <div>
+        <label>Wierzchołek wejścia</label>
+        <input class="firstInput" type="number">
+    </div>
+    <div>
+        <label>Wierzchołek wyjścia</label>
+        <input class="secondInput" type="number">
+    </div>
+    <div>
+        <label>Wartość połączenia</label>
+        <input class="thirdInput" type="number">
+    </div>
+    <div>
+        <button class="addButton">Dodaj połączenie</button>
+    </div>
+    <div>
+        <p>Wyświetl wszystkie połączenia</p>
+    </div>
+    <div>
+        <button class="showButton">Wyświetl połączenia</button>
+    </div>
+
+    <script>
+        var addButton = document.getElementsByClassName('addButton')[0],
+            showButton = document.getElementsByClassName('showButton')[0],
+            firstInput = document.getElementsByClassName('firstInput')[0],
+            secondInput = document.getElementsByClassName('secondInput')[0],
+            thirdInput = document.getElementsByClassName('thirdInput')[0],
+            connectionsList = [];
+
+
+        addButton.addEventListener('click', function () {
+            if (parseInt(firstInput.value) >= 0 && parseInt(secondInput.value) >= 0 && parseInt(thirdInput.value) >= 0) {
+                var singleConnection = [];
+                singleConnection.push(firstInput.value);
+                singleConnection.push(secondInput.value);
+                singleConnection.push(thirdInput.value);
+                var singleConnectionValue = singleConnection.join();
+                var changenConnectionValue = singleConnectionValue.replace(/,/g, '');
+                connectionsList.push(changenConnectionValue);
+                alert("Twoją połączenie zostało dodane do listy");
+            } else {
+                alert("You have to give positive values!");
+            }
+        }, false);
+
+        showButton.addEventListener('click', function () {
+            if (connectionsList.length > 0) {
+                alert(connectionsList);
+            } else {
+                alert("Lista połączeń jest pusta");
+            }
+        }, false);
+
+
+    </script>
+</body>
+
+</html>
