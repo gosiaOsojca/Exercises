@@ -1,0 +1,59 @@
+<html>
+
+<head></head>
+
+<body>
+    <script>
+
+        // CAR
+
+        function Car(carColor, carBrand) {
+            this.color = carColor;
+            this.brand = carBrand;
+            this.doorAmount = 0;
+        }
+
+        Car.prototype.carDescription = function () {
+            alert('The car has' + this.color + 'color and' + this.brand + 'brand');
+        }
+
+        Car.prototype.setDoorAmount = function (amount) {
+            this.doorAmount = amount;
+        }
+
+        var firstCar = new Car('red', 'vw');
+        firstCar.setDoorAmount(5);
+
+        // END CAR
+
+
+
+
+        // MUSIC PLAYER
+
+        function musicPlayer() {
+            this.songTitle = '';
+        }
+
+        musicPlayer.prototype.play = function(title) {
+            this.songTitle = title;
+            alert('The song title is: ' + title);
+        }
+
+        musicPlayer.prototype.stop = function(title) {
+            if(this.songTitle === '') {
+                alert('An error is occured');
+            } else {
+                alert('You have stopped the song with title: ' + title);
+            }
+        }
+
+        var firstPlayer = new musicPlayer;
+        firstPlayer.play('This is the world');
+        firstPlayer.stop('This is the world');
+
+
+    </script>
+</body>
+
+</html>
