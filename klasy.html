@@ -3,6 +3,14 @@
 <head></head>
 
 <body>
+
+    <div>
+        <p>Give the title of the song</p>
+        <input class="songTitle" type="text">
+        <button class="playButton">PLAY</button>
+        <button class="stopButton">STOP</button>
+    </div>
+
     <script>
 
         // CAR
@@ -31,26 +39,38 @@
 
         // MUSIC PLAYER
 
+        var songInput = document.getElementsByClassName('songTitle')[0],
+            playButton = document.getElementsByClassName('playButton')[0],
+            stopButton = document.getElementsByClassName('stopButton')[0];
+
         function musicPlayer() {
             this.songTitle = '';
         }
 
-        musicPlayer.prototype.play = function(title) {
+        musicPlayer.prototype.play = function (title) {
             this.songTitle = title;
             alert('The song title is: ' + title);
         }
 
-        musicPlayer.prototype.stop = function(title) {
-            if(this.songTitle === '') {
+        musicPlayer.prototype.stop = function () {
+            if (this.songTitle === '') {
                 alert('An error is occured');
             } else {
-                alert('You have stopped the song with title: ' + title);
+                alert('You have stopped the song with title: ' + this.songTitle);
+                this.songTitle = '';
             }
         }
 
         var firstPlayer = new musicPlayer;
-        firstPlayer.play('This is the world');
-        firstPlayer.stop('This is the world');
+
+        playButton.addEventListener('click', function() {
+            var songTitle = songInput.value;
+            firstPlayer.play(songTitle);
+        }, false);
+
+        stopButton.addEventListener('click', function() {
+            firstPlayer.stop();
+        }, false);
 
 
     </script>
