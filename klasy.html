@@ -5,75 +5,74 @@
 <body>
 
     <div>
-        <p>Give the title of the song</p>
-        <input class="songTitle" type="text">
-        <button class="playButton">PLAY</button>
-        <button class="stopButton">STOP</button>
+        <p>Give the amount of players</p>
+        <input class="playersAmount" type="number">
+        <button class="showButton">Show players</button>
     </div>
 
     <script>
-
-        // CAR
-
-        function Car(carColor, carBrand) {
-            this.color = carColor;
-            this.brand = carBrand;
-            this.doorAmount = 0;
-        }
-
-        Car.prototype.carDescription = function () {
-            alert('The car has' + this.color + 'color and' + this.brand + 'brand');
-        }
-
-        Car.prototype.setDoorAmount = function (amount) {
-            this.doorAmount = amount;
-        }
-
-        var firstCar = new Car('red', 'vw');
-        firstCar.setDoorAmount(5);
-
-        // END CAR
-
-
-
-
-        // MUSIC PLAYER
-
-        var songInput = document.getElementsByClassName('songTitle')[0],
-            playButton = document.getElementsByClassName('playButton')[0],
-            stopButton = document.getElementsByClassName('stopButton')[0];
-
+        var showButton = document.getElementsByClassName('showButton')[0],
+            playersAmountInput = document.getElementsByClassName('playersAmount')[0],
+            body = document.getElementsByTagName('body')[0];
+        showButton.addEventListener('click', function () {
+            var playersAmount = playersAmountInput.value,
+                i;
+            for (i = 0; i < playersAmount; i++) {
+                var playersItem = document.createElement('div');
+                var playersTitle = document.createElement('p');
+                var playersTitleNode = document.createTextNode('Give the title of the song');
+                var playersSongInput = document.createElement('input');
+                var playButton = document.createElement('button');
+                var playButtonNode = document.createTextNode('PLAY');
+                var stopButton = document.createElement('button');
+                var stopButtonNode = document.createTextNode('STOP');
+                stopButton.appendChild(stopButtonNode);
+                playButton.appendChild(playButtonNode);
+                playersTitle.appendChild(playersTitleNode);
+                playersItem.appendChild(playersTitle);
+                playersItem.appendChild(playersSongInput);
+                playersItem.appendChild(playButton);
+                playersItem.appendChild(stopButton);
+                body.appendChild(playersItem);
+                var newPlayer = new musicPlayer();
+                playButton.addEventListener('click', function () {
+                    var songTitle = playersSongInput.value;
+                    newPlayer.play(songTitle);
+                }, false);
+            }
+        }, false);
         function musicPlayer() {
             this.songTitle = '';
         }
-
         musicPlayer.prototype.play = function (title) {
             this.songTitle = title;
             alert('The song title is: ' + title);
         }
-
-        musicPlayer.prototype.stop = function () {
+        musicPlayer.prototype.stop = function (title) {
             if (this.songTitle === '') {
-                alert('An error is occured');
-            } else {
-                alert('You have stopped the song with title: ' + this.songTitle);
-                this.songTitle = '';
+                musicPlayer.prototype.stop = function () {
+                    if (this.songTitle === '') {
+                        alert('An error is occured');
+                    } else {
+                        alert('You have stopped the song with title: ' + title);
+                        alert('You have stopped the song with title: ' + this.songTitle);
+                        this.songTitle = '';
+                    }
+                }
             }
+            // var firstPlayer = new musicPlayer;
+            // firstPlayer.play('This is the world');
+            // firstPlayer.stop('This is the world');
+            // playButton.addEventListener('click', function () {
+            //     var songTitle = songInput.value;
+            //     firstPlayer.play(songTitle);
+            // }, false);
+            // stopButton.addEventListener('click', function () {
+            //     firstPlayer.stop();
+            // }, false);
         }
-
-        var firstPlayer = new musicPlayer;
-
-        playButton.addEventListener('click', function() {
-            var songTitle = songInput.value;
-            firstPlayer.play(songTitle);
-        }, false);
-
-        stopButton.addEventListener('click', function() {
-            firstPlayer.stop();
-        }, false);
-
-
     </script>
+
 </body>
 
 </html>
