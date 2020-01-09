@@ -52,7 +52,7 @@
                 playButton.addEventListener('click', function () {
                     var songTitle = songinputs[this.id].value;
                     if (songTitle === '') {
-                        alert("You have to chose a song :)");
+                        alert("You have to choose a song :)");
                     } else {
                         players[this.id].play(songTitle);
                         playerStatusValueNodes[this.id].nodeValue = players[this.id].status;
