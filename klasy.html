@@ -16,7 +16,7 @@
             body = document.getElementsByTagName('body')[0],
             players = [],
             songinputs = [],
-            playerStatus = [];
+            playerStatusValueNodes = [];
         showButton.addEventListener('click', function () {
             var playersAmount = playersAmountInput.value,
                 i;
@@ -34,9 +34,9 @@
                 var playerStatus = document.createElement('span');
                 var playerStatusNode = document.createTextNode('Status of the player: ');
                 var playerStatusValue = document.createElement('span');
-                playerStatus[i] = 'You are not listening any song right now.';
-                var playerStatusValueNode = document.createTextNode(playerStatus[i]);
-                playerStatusValue.appendChild(playerStatusValueNode);
+                var playerStatusValueNode = 'You are not listening any song right now.';
+                playerStatusValueNodes[i] = document.createTextNode(playerStatusValueNode);
+                playerStatusValue.appendChild(playerStatusValueNodes[i]);
                 playerStatus.appendChild(playerStatusNode);
                 stopButton.appendChild(stopButtonNode);
                 playButton.appendChild(playButtonNode);
@@ -55,28 +55,34 @@
                         alert("You have to chose a song :)");
                     } else {
                         players[this.id].play(songTitle);
+                        playerStatusValueNodes[this.id].nodeValue = players[this.id].status;
                     }
                 }, false);
                 stopButton.addEventListener('click', function () {
                     var songTitle = songinputs[this.id].value;
                     players[this.id].stop(songTitle);
                     songinputs[this.id].value = '';
+                    playerStatusValueNodes[this.id].nodeValue = players[this.id].status;
                 }, false);
             }
         }, false);
         function musicPlayer() {
             this.songTitle = '';
+            this.status = '';
         }
         musicPlayer.prototype.play = function (title) {
             this.songTitle = title;
             alert('The song title is: ' + title);
+            this.status = "You are listening right now: " + title;
         }
         musicPlayer.prototype.stop = function (title) {
             if (this.songTitle === '') {
                 alert('An error is occured');
+                this.status = "You are not listening any song right now";
             } else {
                 alert('You have stopped the song with title: ' + this.songTitle);
                 this.songTitle = '';
+                this.status = "You have stopped listening to: " + title;
             }
         }
 
