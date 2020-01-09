@@ -14,7 +14,9 @@
         var showButton = document.getElementsByClassName('showButton')[0],
             playersAmountInput = document.getElementsByClassName('playersAmount')[0],
             body = document.getElementsByTagName('body')[0],
-            players = [];
+            players = [],
+            songinputs = [],
+            playerStatus = [];
         showButton.addEventListener('click', function () {
             var playersAmount = playersAmountInput.value,
                 i;
@@ -22,24 +24,43 @@
                 var playersItem = document.createElement('div');
                 var playersTitle = document.createElement('p');
                 var playersTitleNode = document.createTextNode('Give the title of the song');
-                var playersSongInput = document.createElement('input');
+                songinputs[i] = document.createElement('input');
                 var playButton = document.createElement('button');
+                playButton.setAttribute('id', i);
                 var playButtonNode = document.createTextNode('PLAY');
                 var stopButton = document.createElement('button');
+                stopButton.setAttribute('id', i);
                 var stopButtonNode = document.createTextNode('STOP');
+                var playerStatus = document.createElement('span');
+                var playerStatusNode = document.createTextNode('Status of the player: ');
+                var playerStatusValue = document.createElement('span');
+                playerStatus[i] = 'You are not listening any song right now.';
+                var playerStatusValueNode = document.createTextNode(playerStatus[i]);
+                playerStatusValue.appendChild(playerStatusValueNode);
+                playerStatus.appendChild(playerStatusNode);
                 stopButton.appendChild(stopButtonNode);
                 playButton.appendChild(playButtonNode);
                 playersTitle.appendChild(playersTitleNode);
                 playersItem.appendChild(playersTitle);
-                playersItem.appendChild(playersSongInput);
+                playersItem.appendChild(songinputs[i]);
                 playersItem.appendChild(playButton);
                 playersItem.appendChild(stopButton);
+                playersItem.appendChild(playerStatus);
+                playersItem.appendChild(playerStatusValue);
                 body.appendChild(playersItem);
                 players[i] = new musicPlayer();
-                var currentPlayer = players[i];
                 playButton.addEventListener('click', function () {
-                    var songTitle = playersSongInput.value;
-                    currentPlayer.play(songTitle);
+                    var songTitle = songinputs[this.id].value;
+                    if (songTitle === '') {
+                        alert("You have to chose a song :)");
+                    } else {
+                        players[this.id].play(songTitle);
+                    }
+                }, false);
+                stopButton.addEventListener('click', function () {
+                    var songTitle = songinputs[this.id].value;
+                    players[this.id].stop(songTitle);
+                    songinputs[this.id].value = '';
                 }, false);
             }
         }, false);
@@ -52,27 +73,13 @@
         }
         musicPlayer.prototype.stop = function (title) {
             if (this.songTitle === '') {
-                musicPlayer.prototype.stop = function () {
-                    if (this.songTitle === '') {
-                        alert('An error is occured');
-                    } else {
-                        alert('You have stopped the song with title: ' + title);
-                        alert('You have stopped the song with title: ' + this.songTitle);
-                        this.songTitle = '';
-                    }
-                }
+                alert('An error is occured');
+            } else {
+                alert('You have stopped the song with title: ' + this.songTitle);
+                this.songTitle = '';
             }
-            // var firstPlayer = new musicPlayer;
-            // firstPlayer.play('This is the world');
-            // firstPlayer.stop('This is the world');
-            // playButton.addEventListener('click', function () {
-            //     var songTitle = songInput.value;
-            //     firstPlayer.play(songTitle);
-            // }, false);
-            // stopButton.addEventListener('click', function () {
-            //     firstPlayer.stop();
-            // }, false);
         }
+
     </script>
 
 </body>
