@@ -36,9 +36,10 @@
                 playersItem.appendChild(stopButton);
                 body.appendChild(playersItem);
                 players[i] = new musicPlayer();
+                var currentPlayer = players[i];
                 playButton.addEventListener('click', function () {
                     var songTitle = playersSongInput.value;
-                    players[i].play(songTitle);
+                    currentPlayer.play(songTitle);
                 }, false);
             }
         }, false);
