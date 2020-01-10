@@ -16,13 +16,14 @@
             body = document.getElementsByTagName('body')[0],
             players = [],
             songinputs = [],
-            playerStatusValueNodes = [];
+            playerStatusValueNodes = [],
+            playersItems = [];
 
         showButton.addEventListener('click', function () {
             var playersAmount = playersAmountInput.value,
                 i;
             for (i = 0; i < playersAmount; i++) {
-                var playersItem = document.createElement('div');
+                playersItems[i] = document.createElement('div');
                 var playersTitle = document.createElement('p');
                 var playersTitleNode = document.createTextNode('Give the title of the song');
                 songinputs[i] = document.createElement('input');
@@ -36,19 +37,24 @@
                 var playerStatusNode = document.createTextNode('Status of the player: ');
                 var playerStatusValue = document.createElement('span');
                 var playerStatusValueNode = 'You are not listening any song right now.';
+                var deleteButton = document.createElement('button');
+                deleteButton.setAttribute('id', i);
+                var deleteButtonNode = document.createTextNode('DELETE PLAYER');
+                deleteButton.appendChild(deleteButtonNode);
                 playerStatusValueNodes[i] = document.createTextNode(playerStatusValueNode);
                 playerStatusValue.appendChild(playerStatusValueNodes[i]);
                 playerStatus.appendChild(playerStatusNode);
                 stopButton.appendChild(stopButtonNode);
                 playButton.appendChild(playButtonNode);
                 playersTitle.appendChild(playersTitleNode);
-                playersItem.appendChild(playersTitle);
-                playersItem.appendChild(songinputs[i]);
-                playersItem.appendChild(playButton);
-                playersItem.appendChild(stopButton);
-                playersItem.appendChild(playerStatus);
-                playersItem.appendChild(playerStatusValue);
-                body.appendChild(playersItem);
+                playersItems[i].appendChild(playersTitle);
+                playersItems[i].appendChild(songinputs[i]);
+                playersItems[i].appendChild(playButton);
+                playersItems[i].appendChild(stopButton);
+                playersItems[i].appendChild(playerStatus);
+                playersItems[i].appendChild(playerStatusValue);
+                playersItems[i].appendChild(deleteButton);
+                body.appendChild(playersItems[i]);
                 players[i] = new musicPlayer('', '');
 
                 playButton.addEventListener('click', function () {
@@ -61,6 +67,10 @@
                     var songTitle = songinputs[this.id].value;
                     players[this.id].stop(songTitle, songinputs[this.id]);
                     players[this.id].setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
+                }, false);
+
+                deleteButton.addEventListener('click', function () {
+                    players[this.id].deletePlayer(players, (this.id, 1), playersItems[this.id]);
                 }, false);
             }
         }, false);
@@ -92,6 +102,10 @@
             }
             setPlayerStatus(span, players) {
                 span.nodeValue = players.status;
+            }
+            deletePlayer(players, element, playerItems) {
+                players.splice(element);
+                playerItems.remove();
             }
         }
 
