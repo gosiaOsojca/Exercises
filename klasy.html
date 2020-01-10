@@ -17,6 +17,7 @@
             players = [],
             songinputs = [],
             playerStatusValueNodes = [];
+
         showButton.addEventListener('click', function () {
             var playersAmount = playersAmountInput.value,
                 i;
@@ -49,33 +50,41 @@
                 playersItem.appendChild(playerStatusValue);
                 body.appendChild(playersItem);
                 players[i] = new musicPlayer();
+
                 playButton.addEventListener('click', function () {
                     var songTitle = songinputs[this.id].value;
-                    if (songTitle === '') {
-                        alert("You have to choose a song :)");
-                    } else {
-                        players[this.id].play(songTitle);
-                        playerStatusValueNodes[this.id].nodeValue = players[this.id].status;
-                    }
+                    players[this.id].play(songTitle);
+                    setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
                 }, false);
+
                 stopButton.addEventListener('click', function () {
                     var songTitle = songinputs[this.id].value;
-                    players[this.id].stop(songTitle);
-                    songinputs[this.id].value = '';
-                    playerStatusValueNodes[this.id].nodeValue = players[this.id].status;
+                    players[this.id].stop(songTitle, songinputs[this.id]);
+                    setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
                 }, false);
             }
         }, false);
+
+        function setPlayerStatus(span, players) {
+            span.nodeValue = players.status;
+        }
+
         function musicPlayer() {
             this.songTitle = '';
             this.status = '';
         }
+
         musicPlayer.prototype.play = function (title) {
             this.songTitle = title;
-            alert('The song title is: ' + title);
-            this.status = "You are listening right now: " + title;
+            if (this.songTitle === '') {
+                alert("You have to choose a song :)");
+            } else {
+                alert('The song title is: ' + title);
+                this.status = "You are listening right now: " + title;
+            }
         }
-        musicPlayer.prototype.stop = function (title) {
+
+        musicPlayer.prototype.stop = function (title, input) {
             if (this.songTitle === '') {
                 alert('An error is occured');
                 this.status = "You are not listening any song right now";
@@ -84,6 +93,7 @@
                 this.songTitle = '';
                 this.status = "You have stopped listening to: " + title;
             }
+            input.value = '';
         }
 
     </script>
