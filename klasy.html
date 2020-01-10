@@ -49,51 +49,50 @@
                 playersItem.appendChild(playerStatus);
                 playersItem.appendChild(playerStatusValue);
                 body.appendChild(playersItem);
-                players[i] = new musicPlayer();
+                players[i] = new musicPlayer('', '');
 
                 playButton.addEventListener('click', function () {
                     var songTitle = songinputs[this.id].value;
                     players[this.id].play(songTitle);
-                    setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
+                    players[this.id].setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
                 }, false);
 
                 stopButton.addEventListener('click', function () {
                     var songTitle = songinputs[this.id].value;
                     players[this.id].stop(songTitle, songinputs[this.id]);
-                    setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
+                    players[this.id].setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
                 }, false);
             }
         }, false);
 
-        function setPlayerStatus(span, players) {
-            span.nodeValue = players.status;
-        }
-
-        function musicPlayer() {
-            this.songTitle = '';
-            this.status = '';
-        }
-
-        musicPlayer.prototype.play = function (title) {
-            this.songTitle = title;
-            if (this.songTitle === '') {
-                alert("You have to choose a song :)");
-            } else {
-                alert('The song title is: ' + title);
-                this.status = "You are listening right now: " + title;
+        class musicPlayer {
+            constructor(songTitle, status) {
+                this.songTitle = songTitle;
+                this.status = status;
             }
-        }
-
-        musicPlayer.prototype.stop = function (title, input) {
-            if (this.songTitle === '') {
-                alert('An error is occured');
-                this.status = "You are not listening any song right now";
-            } else {
-                alert('You have stopped the song with title: ' + this.songTitle);
-                this.songTitle = '';
-                this.status = "You have stopped listening to: " + title;
+            play(title) {
+                this.songTitle = title;
+                if (this.songTitle === '') {
+                    alert("You have to choose a song :)");
+                } else {
+                    alert('The song title is: ' + title);
+                    this.status = "You are listening right now: " + title;
+                }
             }
-            input.value = '';
+            stop(title, input) {
+                if (this.songTitle === '') {
+                    alert('An error is occured');
+                    this.status = "You are not listening any song right now";
+                } else {
+                    alert('You have stopped the song with title: ' + this.songTitle);
+                    this.songTitle = '';
+                    this.status = "You have stopped listening to: " + title;
+                }
+                input.value = '';
+            }
+            setPlayerStatus(span, players) {
+                span.nodeValue = players.status;
+            }
         }
 
     </script>
