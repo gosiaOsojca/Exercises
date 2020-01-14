@@ -57,6 +57,8 @@
                 body.appendChild(playersItems[i]);
                 players[i] = new musicPlayer('', '');
 
+                players[i].addPlayer();
+
                 playButton.addEventListener('click', function () {
                     var songTitle = songinputs[this.id].value;
                     players[this.id].play(songTitle);
@@ -69,9 +71,10 @@
                     players[this.id].setPlayerStatus(playerStatusValueNodes[this.id], players[this.id]);
                 }, false);
 
-                deleteButton.addEventListener('click', function () {
-                    players[this.id].deletePlayer(players, (this.id, 1), playersItems[this.id]);
-                }, false);
+                // deleteButton.addEventListener('click', function () {
+                //     players.splice((this.id), 1);
+                //     playersItems[this.id].remove();
+                // }, false);
             }
         }, false);
 
@@ -103,9 +106,14 @@
             setPlayerStatus(span, players) {
                 span.nodeValue = players.status;
             }
-            deletePlayer(players, element, playerItems) {
-                players.splice(element);
-                playerItems.remove();
+        }
+
+        class PlayerSet {
+            addPlayer() {
+
+            }
+            removePlayer() {
+
             }
         }
 
