@@ -1,0 +1,47 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <div>
+        <p>Type the string</p>
+        <input class="stringInput" type="text">
+        <button class="showButton">Show the new string</button>
+        <p class="newString"></p>
+    </div>
+
+    <script>
+        var showButton = document.getElementsByClassName('showButton')[0],
+            stringInput = document.getElementsByClassName('stringInput')[0],
+            newString = [];
+
+        showButton.addEventListener('click', function () {
+            var stringInputValue = stringInput.value,
+                i = 0,
+                stringInputValueLength = stringInputValue.length,
+
+            newString = new convertedString(stringInputValue);
+            alert(typeof(newString.stringValue));
+
+            for (i; i <= stringInputValueLength; i++) {
+                var letter = stringInputValue.charAt(i);
+                stringInputValue.concat(letter);
+                stringInputValue.slice(1);
+            }
+        }, false);
+
+        class convertedString {
+            constructor(stringValue) {
+                this.stringValue = stringValue;
+            }
+            convertString() {
+
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
