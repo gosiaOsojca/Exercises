@@ -13,32 +13,22 @@
 
     <script>
         var showButton = document.getElementsByClassName('showButton')[0],
-            stringInput = document.getElementsByClassName('stringInput')[0],
-            newString = [];
+            stringInput = document.getElementsByClassName('stringInput')[0];
 
         showButton.addEventListener('click', function () {
             var stringInputValue = stringInput.value,
                 i = 0,
                 stringInputValueLength = stringInputValue.length,
+                newInput = stringInputValue.split(/(?!$)/u);
 
-            newString = new convertedString(stringInputValue);
-            alert(typeof(newString.stringValue));
-
-            for (i; i <= stringInputValueLength; i++) {
-                var letter = stringInputValue.charAt(i);
-                stringInputValue.concat(letter);
-                stringInputValue.slice(1);
+            for (i; i <= (stringInputValueLength / 2) - 1; i++) {
+                var firstLetter = newInput[i];
+                var lastLetter = newInput[stringInputValueLength - i - 1];
+                newInput[i] = lastLetter;
+                newInput[stringInputValueLength - i - 1] = firstLetter;
             }
+            alert(newInput);
         }, false);
-
-        class convertedString {
-            constructor(stringValue) {
-                this.stringValue = stringValue;
-            }
-            convertString() {
-
-            }
-        }
 
     </script>
 
