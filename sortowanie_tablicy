@@ -1,0 +1,30 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <script>
+        var tableData = [1, 3, 12, 9, 7];
+
+        function sortTable(table, boolAscending) {
+            if (boolAscending === true) {
+                var sortedArray = table.sort(function (a, b) {
+                    return a - b;
+                });
+                console.log(sortedArray);
+            } else {
+                var sortedArray = table.sort(function (a, b) {
+                    return b - a;
+                });
+                console.log(sortedArray);
+            }
+        }
+
+        sortTable(tableData, false);
+
+    </script>
+
+</body>
+
+</html>
