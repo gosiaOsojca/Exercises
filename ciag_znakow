@@ -1,0 +1,37 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <div>
+        <p>Type the string</p>
+        <input class="stringInput" type="text">
+        <button class="showButton">Show the new string</button>
+        <p class="newString"></p>
+    </div>
+
+    <script>
+        var showButton = document.getElementsByClassName('showButton')[0],
+            stringInput = document.getElementsByClassName('stringInput')[0];
+
+        showButton.addEventListener('click', function () {
+            var stringInputValue = stringInput.value,
+                i = 0,
+                stringInputValueLength = stringInputValue.length,
+                newInput = stringInputValue.split(/(?!$)/u);
+
+            for (i; i <= (stringInputValueLength / 2) - 1; i++) {
+                var firstLetter = newInput[i];
+                var lastLetter = newInput[stringInputValueLength - i - 1];
+                newInput[i] = lastLetter;
+                newInput[stringInputValueLength - i - 1] = firstLetter;
+            }
+            alert(newInput);
+        }, false);
+
+    </script>
+
+</body>
+
+</html>
