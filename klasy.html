@@ -13,7 +13,8 @@
     <script>
         var showButton = document.getElementsByClassName('showButton')[0],
             playersAmountInput = document.getElementsByClassName('playersAmount')[0],
-            body = document.getElementsByTagName('body')[0];
+            body = document.getElementsByTagName('body')[0],
+            players = [];
         showButton.addEventListener('click', function () {
             var playersAmount = playersAmountInput.value,
                 i;
@@ -34,10 +35,10 @@
                 playersItem.appendChild(playButton);
                 playersItem.appendChild(stopButton);
                 body.appendChild(playersItem);
-                var newPlayer = new musicPlayer();
+                players[i] = new musicPlayer();
                 playButton.addEventListener('click', function () {
                     var songTitle = playersSongInput.value;
-                    newPlayer.play(songTitle);
+                    players[i].play(songTitle);
                 }, false);
             }
         }, false);

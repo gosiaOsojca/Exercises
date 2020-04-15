@@ -1,0 +1,121 @@
+<html>
+
+<head>
+</head>
+
+<body>
+
+    <button class="firstButton">Sortuj po dacie rosnąco</button>
+    <button class="secondButton">Sortuj po dacie malejąco</button>
+    <button class="thirdButton">Sortuj po cenie rosnąco</button>
+    <button class="fourthButton">Sortuj po cenie malejąco</button>
+
+    <script>
+
+        let body = document.getElementsByTagName('body')[0],
+            sortAscendingByDateButton = document.getElementsByClassName('firstButton')[0],
+            dataArray = [
+                [0, '12-03-2010', 24],
+                [1, '05-03-2010', 19],
+                [2, '16-03-2010', 29],
+                [3, '01-03-2010', 36],
+                [4, '12-03-2010', 12],
+                [5, '05-04-2010', 17],
+                [6, '16-04-2010', 21],
+                [7, '01-02-2010', 40],
+                [8, '01-01-2010', 44],
+                [9, '02-02-2010', 42]
+            ];
+
+
+        window.addEventListener('load', function () {
+
+            let i,
+                table = document.createElement('table'),
+                headerRow = document.createElement('tr'),
+                headerItems = [],
+                textNodes = [];
+
+
+            // START Create Table Header
+            createTableHeaderContent(textNodes);
+
+            for (i = 0; i < 3; i++) {
+                createTableHeader(headerItems[i], headerRow, textNodes[i]);
+            }
+
+            table.appendChild(headerRow);
+            // END Create Table Header
+
+
+            // START Create Table Rows
+            var contentRows = [];
+            for (i = 0; i < 10; i++) {
+                var contentRows = createTableRows(contentRows[i], i, dataArray);
+                table.appendChild(contentRows);
+            }
+            // END Create Table Rows
+
+
+            body.appendChild(table);
+
+        }, false);
+
+        function Comparator(a, b) {
+            if (a[1] < b[1]) return -1;
+            if (a[1] > b[1]) return 1;
+            return 0;
+        }
+
+        sortAscendingByDateButton.addEventListener('click', function () {
+            dataArray = dataArray.sort(Comparator);
+            console.log(dataArray);
+        }, false);
+
+
+        function createTableHeaderContent(textNodes) {
+            textNodes[0] = document.createTextNode('Nr.');
+            textNodes[1] = document.createTextNode('Data');
+            textNodes[2] = document.createTextNode('Cena');
+        }
+
+        function createTableHeader(headerItems, headerRow, textNodes) {
+            headerItems = document.createElement('th');
+            headerItems.setAttribute('scope', 'row');
+            headerItems.appendChild(textNodes);
+            headerRow.appendChild(headerItems);
+            return headerRow;
+        }
+
+
+        function createTableRows(contentRows, i, dataArray) {
+            contentRows = document.createElement('tr');
+            var j;
+            var rowItems = [];
+            var rowContents = [];
+            for (j = 0; j < 3; j++) {
+                createTableRow(rowItems[j], contentRows, rowContents[j], i, j, dataArray);
+            }
+            return contentRows;
+        }
+
+        function createTableRow(rowItems, contentRows, rowContents, i, j, dataArray) {
+            rowItems = document.createElement('td');
+            var contentValue;
+            if (j === 0) {
+                contentValue = dataArray[i][j];
+            } else if (j === 1) {
+                contentValue = dataArray[i][j];
+            } else if (j === 2) {
+                contentValue = dataArray[i][j];
+            }
+            rowContents = document.createTextNode(contentValue);
+            rowItems.appendChild(rowContents);
+            contentRows.appendChild(rowItems);
+        }
+
+    </script>
+
+</body>
+
+</html>
