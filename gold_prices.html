@@ -1,6 +1,7 @@
-<html>
+<!DOCTYPE html lang="en">
 
 <head>
+    <title>Gold prices</title>
 </head>
 
 <body>
@@ -18,16 +19,16 @@
             sortAscendingByPriceButton = document.getElementsByClassName('thirdButton')[0],
             sortDescendingByPriceButton = document.getElementsByClassName('fourthButton')[0],
             dataArray = [
-                [0, '12-03-2010', 24],
+                [0, '23-03-2010', 24],
                 [1, '05-03-2010', 19],
-                [2, '16-03-2010', 29],
-                [3, '01-03-2010', 36],
-                [4, '12-03-2010', 12],
-                [5, '05-04-2010', 17],
-                [6, '16-04-2010', 21],
-                [7, '01-02-2010', 40],
-                [8, '01-01-2010', 44],
-                [9, '02-02-2010', 42]
+                [2, '05-03-2010', 29],
+                [3, '01-04-2010', 36],
+                [4, '12-10-2000', 12],
+                [5, '23-04-2020', 17],
+                [6, '18-04-1998', 21],
+                [7, '01-02-1980', 40],
+                [8, '01-12-2010', 44],
+                [9, '26-02-2010', 42]
             ],
             i,
             table = document.createElement('table'),
@@ -71,17 +72,18 @@
         }
         // END filling the table
 
+
         // START Sorting
         function DateAscendingComparator(a, b) {
-            if (a[1] < b[1]) return -1;
-            if (a[1] > b[1]) return 1;
-            return 0;
+            var c = a[1].split('-').reverse().join('');
+            var d = b[1].split('-').reverse().join('');
+            return c > d ? 1 :c < d ? -1 : 0;
         }
 
         function DateDescendingComparator(a, b) {
-            if (a[1] < b[1]) return 1;
-            if (a[1] > b[1]) return -1;
-            return 0;
+            var c = a[1].split('-').reverse().join('');
+            var d = b[1].split('-').reverse().join('');
+            return c > d ? -1 :c < d ? 1 : 0;
         }
 
         function PriceAscendingComparator(a, b) {
