@@ -19,22 +19,23 @@
             sortAscendingByPriceButton = document.getElementsByClassName('thirdButton')[0],
             sortDescendingByPriceButton = document.getElementsByClassName('fourthButton')[0],
             dataArray = [
-                [0, '23-03-2010', 24],
-                [1, '05-03-2010', 19],
-                [2, '05-03-2010', 29],
-                [3, '01-04-2010', 36],
-                [4, '12-10-2000', 12],
-                [5, '23-04-2020', 17],
-                [6, '18-04-1998', 21],
-                [7, '01-02-1980', 40],
-                [8, '01-12-2010', 44],
-                [9, '26-02-2010', 42]
+                [0, new Date('2010-10-12'), 24],
+                [1, new Date('2009-05-10'), 19],
+                [2, new Date('2008-12-05'), 29],
+                [3, new Date('2012-11-12'), 36],
+                [4, new Date('2010-01-14'), 12],
+                [5, new Date('2010-02-20'), 17],
+                [6, new Date('2011-10-14'), 21],
+                [7, new Date('2015-03-09'), 40],
+                [8, new Date('2010-09-23'), 44],
+                [9, new Date('2010-12-24'), 42]
             ],
             i,
             table = document.createElement('table'),
             headerRow = document.createElement('tr'),
             headerItems = [],
-            textNodes = [];
+            textNodes = [],
+            formattedDataArray = [];
 
 
         // START Create Table Header
@@ -59,12 +60,14 @@
         body.appendChild(table);
 
         // START filling the table
+        createFormattedDataArray(dataArray);
+
         var tableCells = document.getElementsByTagName('td'),
             usefulDataArray = [],
             rowContents = [];
 
         for (i = 0; i < tableCells.length; i++) {
-            usefulDataArray = prepareTableData(usefulDataArray, dataArray[i]);
+            usefulDataArray = prepareTableData(usefulDataArray, formattedDataArray[i]);
         }
 
         for (i = 0; i < tableCells.length; i++) {
@@ -75,15 +78,15 @@
 
         // START Sorting
         function DateAscendingComparator(a, b) {
-            var c = a[1].split('-').reverse().join('');
-            var d = b[1].split('-').reverse().join('');
-            return c > d ? 1 :c < d ? -1 : 0;
+            if (a[1] < b[1]) return -1;
+            if (a[1] > b[1]) return 1;
+            return 0;
         }
 
         function DateDescendingComparator(a, b) {
-            var c = a[1].split('-').reverse().join('');
-            var d = b[1].split('-').reverse().join('');
-            return c > d ? -1 :c < d ? 1 : 0;
+            if (a[1] < b[1]) return 1;
+            if (a[1] > b[1]) return -1;
+            return 0;
         }
 
         function PriceAscendingComparator(a, b) {
@@ -99,19 +102,19 @@
         }
 
         sortAscendingByDateButton.addEventListener('click', function () {
-            sortData(dataArray, DateAscendingComparator, usefulDataArray, tableCells);
+            sortData(dataArray, DateAscendingComparator, usefulDataArray, tableCells, formattedDataArray);
         }, false);
 
         sortDescendingByDateButton.addEventListener('click', function () {
-            sortData(dataArray, DateDescendingComparator, usefulDataArray, tableCells);
+            sortData(dataArray, DateDescendingComparator, usefulDataArray, tableCells, formattedDataArray);
         }, false);
 
         sortAscendingByPriceButton.addEventListener('click', function () {
-            sortData(dataArray, PriceAscendingComparator, usefulDataArray, tableCells);
+            sortData(dataArray, PriceAscendingComparator, usefulDataArray, tableCells, formattedDataArray);
         }, false);
 
         sortDescendingByPriceButton.addEventListener('click', function () {
-            sortData(dataArray, PriceDescendingComparator, usefulDataArray, tableCells);
+            sortData(dataArray, PriceDescendingComparator, usefulDataArray, tableCells, formattedDataArray);
         }, false);
         // END Sorting
 
@@ -146,8 +149,8 @@
             contentRows.appendChild(rowItems);
         }
 
-        function prepareTableData(usefulDataArray, dataArray) {
-            usefulDataArray = usefulDataArray.concat(dataArray);
+        function prepareTableData(usefulDataArray, formattedDataArray) {
+            usefulDataArray = usefulDataArray.concat(formattedDataArray);
             return usefulDataArray;
         }
 
@@ -158,15 +161,24 @@
             tableCells.appendChild(rowContents);
         }
 
-        function sortData(dataArray, Comparator, usefulDataArray, tableCells, ) {
+        function sortData(dataArray, Comparator, usefulDataArray, tableCells, formattedDataArray) {
             dataArray = dataArray.sort(Comparator);
+            createFormattedDataArray(dataArray);
             usefulDataArray.splice(0, usefulDataArray.length);
             for (i = 0; i < tableCells.length; i++) {
-                usefulDataArray = prepareTableData(usefulDataArray, dataArray[i]);
+                usefulDataArray = prepareTableData(usefulDataArray, formattedDataArray[i]);
                 tableCells[i].innerHTML = '';
             }
             for (i = 0; i < tableCells.length; i++) {
                 fillTable(usefulDataArray[i], rowContents[i], tableCells[i]);
+            }
+        }
+
+        function createFormattedDataArray(dataArray) {
+            for (i = 0; i < dataArray.length; i++) {
+                var newDate;
+                newDate = dataArray[i][1].toLocaleDateString().replace(/\./g, '-');;
+                formattedDataArray[i] = [dataArray[i][0], newDate, dataArray[i][2]];
             }
         }
         // END FUNCTIONS
