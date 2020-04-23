@@ -185,6 +185,68 @@
 
     </script>
 
+    <br><br>
+    <label>Podaj rok:</label>
+    <div>
+        <input class="yearInputValue" type="number">
+        <button class="yearSubmitButton">FILTRUJ</button>
+    </div>
+
+    <script>
+
+        var filterButton = document.getElementsByClassName('yearSubmitButton')[0],
+            yearInput = document.getElementsByClassName('yearInputValue')[0],
+            filteredDataArray = [];
+
+
+
+        filterButton.addEventListener('click', function () {
+            var yearValue = yearInput.value,
+                tableRows = document.getElementsByTagName('tr');
+
+            for (i = tableRows.length - 1; i > 0; i--) {
+                tableRows[i].remove();
+            }
+
+            for (i = 0; i < dataArray.length; i++) {
+                if (dataArray[i][1].getFullYear() == yearValue) {
+                    filteredDataArray.push(dataArray[i]);
+                }
+            }
+
+            // START Create Table Rows
+            var contentRows = [];
+            for (i = 0; i < filteredDataArray.length; i++) {
+                var contentRows = createTableRows(contentRows[i]);
+                table.appendChild(contentRows);
+            }
+            // END Create Table Rows
+
+
+            // START filling the table
+            createFormattedDataArray(filteredDataArray);
+
+            var tableCells = document.getElementsByTagName('td'),
+                usefulDataArray = [],
+                rowContents = [];
+
+            for (i = 0; i < tableCells.length; i++) {
+                usefulDataArray = prepareTableData(usefulDataArray, formattedDataArray[i]);
+            }
+
+            for (i = 0; i < tableCells.length; i++) {
+                fillTable(usefulDataArray[i], rowContents[i], tableCells[i]);
+            }
+            // END filling the table
+
+
+        })
+
+
+
+    </script>
+
+
 </body>
 
 </html>
