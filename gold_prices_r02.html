@@ -2,6 +2,8 @@
 
 <head>
     <title>Gold prices</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -66,7 +68,7 @@
                 },
                 {
                     number: 9,
-                    date: new Date('2013-02-01'),
+                    date: new Date('2020-05-13'),
                     price: 19
                 },
             ],
@@ -245,8 +247,74 @@
                 tableBodyNew = document.createElement('tbody');
 
 
-            for(dataArrayItem of dataArray) {
+            for (dataArrayItem of dataArray) {
                 if (dataArrayItem.date.getFullYear() == yearValue) {
+                    filteredDataArray.push(dataArrayItem);
+                }
+            }
+
+
+            // START Create Table Rows
+            var contentRows = [];
+            for (i = 0; i < filteredDataArray.length; i++) {
+                var contentRows = createTableRows(contentRows[i]);
+                tableBodyNew.appendChild(contentRows);
+            }
+            // END Create Table Rows
+            table.replaceChild(tableBodyNew, tableBody);
+
+
+            // START filling the table
+            createFormattedDataArray(filteredDataArray);
+
+            var tableCells = document.getElementsByTagName('td'),
+                usefulDataArray = [],
+                rowContents = [];
+
+            for (i = 0; i < tableCells.length; i++) {
+                usefulDataArray = prepareTableData(usefulDataArray, formattedDataArray[i]);
+            }
+
+            for (i = 0; i < tableCells.length; i++) {
+                fillTable(usefulDataArray[i], rowContents[i], tableCells[i]);
+            }
+            // END filling the table
+
+        })
+
+    </script>
+
+    <br><br>
+    <label>Dzień danych:</label>
+    <div>
+        <input class="dayInputValue" type="text" id="datepicker">
+        <button class="daySubmitButton">FILTRUJ</button>
+    </div>
+
+    <script>
+
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+
+
+        var pickerfFilterButton = document.getElementsByClassName('daySubmitButton')[0],
+            dayInput = document.getElementsByClassName('dayInputValue')[0];
+        // filteredDataArray = [];
+
+
+
+        pickerfFilterButton.addEventListener('click', function () {
+            var dayValue = $("#datepicker").datepicker('getDate'),
+                tableRows = document.getElementsByTagName('tr'),
+                tableBodyNew = document.createElement('tbody');
+
+
+            for (dataArrayItem of dataArray) {
+                if (dataArrayItem.date.getFullYear() == dayValue.getFullYear() &&
+                    dataArrayItem.date.getMonth() == dayValue.getMonth() &&
+                    dataArrayItem.date.getDay() == dayValue.getDay()
+                ) {
                     filteredDataArray.push(dataArrayItem);
                 }
             }
