@@ -97,8 +97,9 @@
         // START Create Table Rows
         var contentRows = [];
         for (i = 0; i < 10; i++) {
-            var contentRows = createTableRows(contentRows[i]);
-            tableBody.appendChild(contentRows);
+            // var contentRows = createTableRows(contentRows[i]);
+            var contentRow = createTableRows();
+            tableBody.appendChild(contentRow);
         }
         // END Create Table Rows
 
@@ -257,8 +258,9 @@
             // START Create Table Rows
             var contentRows = [];
             for (i = 0; i < filteredDataArray.length; i++) {
-                var contentRows = createTableRows(contentRows[i]);
-                tableBodyNew.appendChild(contentRows);
+                // var contentRows = createTableRows(contentRows[i]);
+                var contentRow = createTableRows();
+                tableBodyNew.appendChild(contentRow);
             }
             // END Create Table Rows
             table.replaceChild(tableBodyNew, tableBody);
@@ -334,8 +336,8 @@
             // START Create Table Rows
             var contentRows = [];
             for (i = 0; i < filteredDataArray.length; i++) {
-                var contentRows = createTableRows(contentRows[i]);
-                tableBodyNew.appendChild(contentRows);
+                var contentRow = createTableRows();
+                tableBodyNew.appendChild(contentRow);
             }
 
             // END Create Table Rows
