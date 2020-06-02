@@ -175,19 +175,19 @@
             return tableHead;
         }
 
-        function createTableRows(contentRows) {
-            contentRows = document.createElement('tr');
+        function createTableRows() {
+            var contentRow = document.createElement('tr');
             var j;
             var rowItems = [];
             for (j = 0; j < 3; j++) {
-                createTableRow(rowItems[j], contentRows);
+                createTableRow(rowItems[j], contentRow);
             }
-            return contentRows;
+            return contentRow;
         }
 
-        function createTableRow(rowItems, contentRows) {
+        function createTableRow(rowItems, contentRow) {
             rowItems = document.createElement('td');
-            contentRows.appendChild(rowItems);
+            contentRow.appendChild(rowItems);
         }
 
         function prepareTableData(usefulDataArray, formattedDataArray) {
