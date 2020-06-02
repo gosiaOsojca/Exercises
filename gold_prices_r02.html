@@ -112,7 +112,7 @@
             usefulDataArray = [],
             rowContents = [];
 
-        for (i = 0; i < tableCells.length; i++) {
+        for (i = 0; i < formattedDataArray.length; i++) {
             usefulDataArray = prepareTableData(usefulDataArray, formattedDataArray[i]);
         }
 
@@ -246,7 +246,7 @@
                 tableRows = document.getElementsByTagName('tr'),
                 tableBodyNew = document.createElement('tbody');
 
-
+            filteredDataArray = [];
             for (dataArrayItem of dataArray) {
                 if (dataArrayItem.date.getFullYear() == yearValue) {
                     filteredDataArray.push(dataArrayItem);
@@ -262,7 +262,7 @@
             }
             // END Create Table Rows
             table.replaceChild(tableBodyNew, tableBody);
-
+            tableBody = tableBodyNew;
 
             // START filling the table
             createFormattedDataArray(filteredDataArray);
@@ -309,15 +309,26 @@
                 tableRows = document.getElementsByTagName('tr'),
                 tableBodyNew = document.createElement('tbody');
 
-
-            for (dataArrayItem of dataArray) {
-                if (dataArrayItem.date.getFullYear() == dayValue.getFullYear() &&
-                    dataArrayItem.date.getMonth() == dayValue.getMonth() &&
-                    dataArrayItem.date.getDay() == dayValue.getDay()
-                ) {
-                    filteredDataArray.push(dataArrayItem);
+            if (dayInput.value == '') {
+                filteredDataArray = dataArray;
+            } else {
+                filteredDataArray = [];
+                for (dataArrayItem of dataArray) {
+                    if (dataArrayItem.date.getFullYear() === dayValue.getFullYear() &&
+                        dataArrayItem.date.getMonth() === dayValue.getMonth() &&
+                        dataArrayItem.date.getDay() === dayValue.getDay()
+                    ) {
+                        filteredDataArray.push(dataArrayItem);
+                    }
                 }
             }
+            // for (dataArrayItem of dataArray) {
+            //     if (dataArrayItem.date.getFullYear() == dayValue.getFullYear() &&
+            //         dataArrayItem.date.getMonth() == dayValue.getMonth() &&
+            //         dataArrayItem.date.getDay() == dayValue.getDay()
+            //     ) {
+            //         filteredDataArray.push(dataArrayItem);
+            // }
 
 
             // START Create Table Rows
@@ -326,10 +337,12 @@
                 var contentRows = createTableRows(contentRows[i]);
                 tableBodyNew.appendChild(contentRows);
             }
+
             // END Create Table Rows
             table.replaceChild(tableBodyNew, tableBody);
+            tableBody = tableBodyNew;
 
-
+            // tableBodyNew = [];
             // START filling the table
             createFormattedDataArray(filteredDataArray);
 
