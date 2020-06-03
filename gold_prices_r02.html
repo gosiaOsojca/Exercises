@@ -240,8 +240,6 @@
             yearInput = document.getElementsByClassName('yearInputValue')[0],
             filteredDataArray = [];
 
-
-
         filterButton.addEventListener('click', function () {
             var yearValue = yearInput.value,
                 tableRows = document.getElementsByTagName('tr'),
@@ -253,7 +251,6 @@
                     filteredDataArray.push(dataArrayItem);
                 }
             }
-
 
             // START Create Table Rows
             var contentRows = [];
@@ -299,12 +296,8 @@
             $("#datepicker").datepicker();
         });
 
-
         var pickerfFilterButton = document.getElementsByClassName('daySubmitButton')[0],
             dayInput = document.getElementsByClassName('dayInputValue')[0];
-        // filteredDataArray = [];
-
-
 
         pickerfFilterButton.addEventListener('click', function () {
             var dayValue = $("#datepicker").datepicker('getDate'),
@@ -316,22 +309,12 @@
             } else {
                 filteredDataArray = [];
                 for (dataArrayItem of dataArray) {
-                    if (dataArrayItem.date.getFullYear() === dayValue.getFullYear() &&
-                        dataArrayItem.date.getMonth() === dayValue.getMonth() &&
-                        dataArrayItem.date.getDay() === dayValue.getDay()
-                    ) {
+                    dataArrayItem.date.setHours(0,0,0,0);
+                        if(dataArrayItem.date.getTime() === dayValue.getTime()) {
                         filteredDataArray.push(dataArrayItem);
                     }
                 }
             }
-            // for (dataArrayItem of dataArray) {
-            //     if (dataArrayItem.date.getFullYear() == dayValue.getFullYear() &&
-            //         dataArrayItem.date.getMonth() == dayValue.getMonth() &&
-            //         dataArrayItem.date.getDay() == dayValue.getDay()
-            //     ) {
-            //         filteredDataArray.push(dataArrayItem);
-            // }
-
 
             // START Create Table Rows
             var contentRows = [];
@@ -344,7 +327,6 @@
             table.replaceChild(tableBodyNew, tableBody);
             tableBody = tableBodyNew;
 
-            // tableBodyNew = [];
             // START filling the table
             createFormattedDataArray(filteredDataArray);
 
